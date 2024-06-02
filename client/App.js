@@ -1,25 +1,45 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
-import Box from "./components/Box";
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  SafeAreaView,
+  Platform,
+} from 'react-native';
+import Box from './components/Box';
+import CustomButton from './components/CustomButton/CustomButton';
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Box text={"box1"} bgcolor={"red"} flexBasis={140} flexgrow={3} />
-      <Box text={"box2"} bgcolor={"blue"} height={140} flexgrow={1} />
-      <Box text={"box3"} bgcolor={"green"} />
-      <Box text={"box4"} bgcolor={"brown"} />
-      <Box text={"box5"} bgcolor={"gray"} />
-      <Box text={"box6"} bgcolor={"yellow"} />
-      <Box text={"box7"} bgcolor={"purple"} />
-    </View>
+    <SafeAreaView style={styles.safeContainer}>
+      <View style={styles.container}>
+        <Text style={styles.text}>Hello world</Text>
+        <CustomButton title={'click me'} />
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    borderWidth: 4,
+    alignItems: 'center',
+    backgroundColor: 'pink',
     flex: 1,
+    ...Platform.select({
+      ios: {
+        backgroundColor: 'pink',
+      },
+      android: {
+        backgroundColor: 'blue',
+      },
+    }),
+  },
+  safeContainer: {
+    flex: 1,
+    backgroundColor: 'pink',
+    paddingTop: Platform.OS === 'android' ? 0 : 65,
+  },
+  text: {
+    color: Platform.OS === 'android' ? 'white' : 'black',
+    fontSize: 48,
   },
 });

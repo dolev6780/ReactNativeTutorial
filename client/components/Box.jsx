@@ -1,27 +1,23 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, useWindowDimensions} from "react-native";
 
-export default function Box({ text, bgcolor, flexBasis, height, flexgrow }) {
+export default function Box({ text, bgcolor, axis, top, position }) {
+  const width = useWindowDimensions().width;
+  const height = useWindowDimensions().height
+  console.log("width: ", width, ", height: ",height)
   return (
-    <View
-      style={[
-        styles.box,
-        {
-          backgroundColor: bgcolor,
-          flexGrow: flexgrow,
-        },
-      ]}
-    >
-      <Text style={{ fontSize: 24 }}>{text}</Text>
+    <View style={[width > 550 ? styles.tabletBox : styles.mobileBox]}>
+      <Text style={[styles.text, { fontSize: width > 500 ? 56 : 24 }]}>
+        {text}
+      </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  box: {
-    height: 70,
-
-    justifyContent: "center",
-    alignItems: "center",
+  tabletBox: {
+    backgroundColor: "red"
   },
+  mobileBox: {
+    backgroundColor: "blue"
+  }
 });
